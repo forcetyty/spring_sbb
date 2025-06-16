@@ -16,6 +16,7 @@ import com.mysite.sbb.answer.Answer;
 import com.mysite.sbb.answer.AnswerRepository;
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.QuestionRepository;
+import com.mysite.sbb.question.QuestionService;
 
 @SpringBootTest
 class SbbApplicationTests {
@@ -25,8 +26,11 @@ class SbbApplicationTests {
 	
 	@Autowired
 	private AnswerRepository answerRepository;
+	
+	@Autowired
+	private QuestionService questionService;
 
-	@Transactional
+	//@Transactional
 	@Test
 	void testJpa() {
 		// 데이터 저장 
@@ -123,16 +127,28 @@ class SbbApplicationTests {
 		assertEquals(2, a.getQuestion());
 		*/
 		
+		
 		// 답변 데이터를 통해 질문 데이터 찾기 vs 질문 데이터를 통해 답변 데이터 찾기
+		/*
 		Optional<Question> oq = this.questionRepository.findById(2);
 		assertTrue(oq.isPresent());
 		Question q = oq.get();
-		
 		List<Answer> answerList = q.getAnswerList();
+		*/
+		
 		// 데이터를 필요한 시점에 가져오는 방식을 지연(Lazy) 방식
 		// q 객체를 조회할 때 미리 answer 리스트를 모두 가져오는 방식은 즉시 방
+		/*
 		assertEquals(1, answerList.size());
 		assertEquals("네 자동으로 생성됩니다.", answerList.get(0).getContent());
+		*/
+		
+		for(int i = 0; i <= 300; i++) {
+			String subject = String.format("테스트 데이터입니다 :[%03d]", i);
+			String content = "내용 없음";
+			this.questionService.create(subject, content);
+			
+		}
 		
 	}
 	
