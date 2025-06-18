@@ -2,6 +2,7 @@ package com.mysite.sbb.question;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,10 +31,11 @@ public class QuestionController {
 
     @GetMapping("/list")
     //@ResponseBody
-    public String list(Model model) {
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
     	//List<Question> questionList = this.questionRepository.findAll(); //레포지터리에 직접 접근 - 임시
-    	List<Question> questionList = this.questionService.getList();
-    	model.addAttribute("questionList", questionList);
+    	//List<Question> questionList = this.questionService.getList();
+    	Page<Question> paging = this.questionService.getList(page);
+    	model.addAttribute("paging", paging);
     	
         return "question_list";	// Templates에서 해당 파일명으로 매
     }
