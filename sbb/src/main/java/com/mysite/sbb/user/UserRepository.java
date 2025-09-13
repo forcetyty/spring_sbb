@@ -2,6 +2,6 @@ package com.mysite.sbb.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<Siteuser, Long>{
+public interface UserRepository extends JpaRepository<SiteUser, Long>{
 
 }
